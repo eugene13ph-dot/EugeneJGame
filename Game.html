@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realistic Jerk Off Game</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        #game-container {
+            text-align: center;
+        }
+        #penis-container {
+            position: relative;
+            width: 120px;
+            margin: 0 auto;
+        }
+        #penis-shaft {
+            position: absolute;
+            bottom: 0;
+            width: 100px;
+            left: 10px;
+            height: 250px; /* Default, will be randomized */
+            background: linear-gradient(to bottom, #d2a679, #c68642);
+            border-radius: 50px 50px 0 0;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        #penis-head {
+            position: absolute;
+            top: -40px;
+            left: 5px;
+            width: 110px;
+            height: 80px;
+            background-color: #ff69b4;
+            border-radius: 50% 50% 30% 30%;
+            box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+        }
+        #arm {
+            position: absolute;
+            width: 200px;
+            height: 40px;
+            background: linear-gradient(to right, #c68642, #d2a679);
+            border-radius: 20px;
+            left: -210px;
+            top: 200px; /* Will adjust with hand */
+            transform: rotate(-10deg);
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        #hand {
+            position: absolute;
+            width: 120px;
+            height: 60px;
+            background-color: #c68642;
+            border-radius: 50% 50% 20% 20%;
+            left: -10px;
+            top: 200px; /* Starting position, will be randomized */
+            transition: top 0.2s ease-in-out;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        #hand.moving {
+            top: 50px; /* Up position, will adjust */
+        }
+        #fingers {
+            position: absolute;
+            bottom: -20px;
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        .finger {
+            width: 80px;
+            height: 10px;
+            background-color: #b5651d;
+            margin: 2px 0;
+            border-radius: 5px;
+            transform: rotate(5deg);
+        }
+        .thumb {
+            position: absolute;
+            top: 10px;
+            left: -20px;
+            width: 40px;
+            height: 20px;
+            background-color: #b5651d;
+            border-radius: 50%;
+            transform: rotate(45deg);
+        }
+        #cum {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 0;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0;
+            transition: height 0.5s, opacity 0.5s;
+        }
+        #cum.shooting {
+            height: 100px;
+            opacity: 1;
+            animation: shoot 1s forwards;
+        }
+        @keyframes shoot {
+            0% { transform: translate(-50%, 0); }
+            100% { transform: translate(-50%, -200px); opacity: 0; }
+        }
+        #progress-bar {
+            width: 200px;
+            height: 20px;
+            background-color: #ddd;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        #progress {
+            width: 0;
+            height: 100%;
+            background-color: #4caf50;
+            transition: width 0.1s;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>Realistic Jerk Off Game</h1>
+        <div id="penis-container">
+            <div id="arm"></div>
+            <div id="penis-shaft"></div>
+            <div id="penis-head">
+                <div id="cum"></div>
+            </div>
+            <div id="hand">
+                <div id="fingers">
+                    <div class="finger"></div>
+                    <div class="finger" style="width: 70px;"></div>
+                    <div class="finger" style="width: 60px;"></div>
+                </div>
+                <div class="thumb"></div>
+            </div>
+        </div>
+        <div id="progress-bar">
+            <div id="progress"></div>
+        </div>
+        <button id="jerk-button">Jerk</button>
+        <p>Click the button to jerk. Build up to 100% to cum!</p>
+    </div>
+
+    <script>
+        const penisContainer = document.getElementById('penis-container');
+        const penisShaft = document.getElementById('penis-shaft');
+        const penisHead = document.getElementById('penis-head');
+        const hand = document.getElementById('hand');
+        const arm = document.getElementById('arm');
+        const cum = document.getElementById('cum');
+        const progress = document.getElementById('progress');
+        const button = document.getElementById('jerk-button');
+
+        // Randomization
+        const maxStrokes = Math.floor(Math.random() * 21) + 10; // 10 to 30
+        const penisLength = Math.floor(Math.random() * 201) + 200; // 200 to 400px
+        const shaftLength = penisLength - 40; // Adjust for head
+        penisShaft.style.height = `${shaftLength}px`;
+        penisContainer.style.height = `${penisLength}px`;
+
+        const handStart = shaftLength - 80; // Near bottom
+        const handUp = 50; // Near top
+        hand.style.top = `${handStart + 40}px`; // Offset for head
+        arm.style.top = `${handStart + 60}px`; // Align with hand
+
+        let strokeCount = 0;
+
+        button.addEventListener('click', () => {
+            // Move hand up and down
+            hand.style.top = `${handUp + 40}px`;
+            arm.style.top = `${handUp + 60}px`;
+            setTimeout(() => {
+                hand.style.top = `${handStart + 40}px`;
+                arm.style.top = `${handStart + 60}px`;
+            }, 200);
+
+            // Increase progress
+            strokeCount++;
+            const progressPercent = Math.min((strokeCount / maxStrokes) * 100, 100);
+            progress.style.width = `${progressPercent}%`;
+
+            // Check if cum
+            if (strokeCount >= maxStrokes) {
+                cum.classList.add('shooting');
+                button.disabled = true;
+                setTimeout(() => {
+                    alert('You came! Reload to play again.');
+                    strokeCount = 0;
+                    progress.style.width = '0%';
+                    cum.classList.remove('shooting');
+                    button.disabled = false;
+                }, 1500);
+            }
+        });
+    </script>
+</body>
+  </html>
