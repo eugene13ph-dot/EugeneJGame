@@ -5,7 +5,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Realistic Jerk Off Game</title>
     <style>
-        /* ... your existing styles here ... */
+        body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+#game-container {
+    text-align: center;
+}
+#penis-container {
+    position: relative;
+    width: 120px;
+    margin: 0 auto;
+}
+#penis-shaft {
+    position: absolute;
+    bottom: 0;
+    width: 100px;
+    left: 10px;
+    height: 250px; /* Will be set by JS */
+    background: linear-gradient(to bottom, #d2a679, #c68642);
+    border-radius: 50px 50px 0 0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+#penis-head {
+    position: absolute;
+    top: -40px;
+    left: 5px;
+    width: 110px;
+    height: 80px;
+    background-color: #ff69b4;
+    border-radius: 50% 50% 30% 30%;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+}
+#arm {
+    position: absolute;
+    width: 200px;
+    height: 40px;
+    background: linear-gradient(to right, #c68642, #d2a679);
+    border-radius: 20px;
+    left: -210px;
+    top: 200px;
+    transform: rotate(-10deg);
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+#hand {
+    position: absolute;
+    width: 120px;
+    height: 60px;
+    background-color: #c68642;
+    border-radius: 50% 50% 20% 20%;
+    left: -10px;
+    top: 200px;
+    transition: top 0.2s ease-in-out;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+#hand.moving {
+    top: 50px;
+}
+#fingers {
+    position: absolute;
+    bottom: -20px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.finger {
+    width: 80px;
+    height: 10px;
+    background-color: #b5651d;
+    margin: 2px 0;
+    border-radius: 5px;
+    transform: rotate(5deg);
+}
+.thumb {
+    position: absolute;
+    top: 10px;
+    left: -20px;
+    width: 40px;
+    height: 20px;
+    background-color: #b5651d;
+    border-radius: 50%;
+    transform: rotate(45deg);
+}
+#cum {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 0;
+    background-color: white;
+    border-radius: 50%;
+    opacity: 0;
+    transition: height 0.5s, opacity 0.5s;
+}
+#cum.shooting {
+    height: 100px;
+    opacity: 1;
+    animation: shoot 1s forwards;
+}
+@keyframes shoot {
+    0% { transform: translate(-50%, 0); }
+    100% { transform: translate(-50%, -200px); opacity: 0; }
+}
+#progress-bar {
+    width: 200px;
+    height: 20px;
+    background-color: #ddd;
+    margin: 20px auto;
+    border-radius: 10px;
+    overflow: hidden;
+}
+#progress {
+    width: 0;
+    height: 100%;
+    background-color: #4caf50;
+    transition: width 0.1s;
+}
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
     </style>
 </head>
 <body>
